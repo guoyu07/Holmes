@@ -1,7 +1,4 @@
-TODO
-
-- airplay
-- i18n on UI
-- imrove UI design
+TODO :
+- portage linux du script startup.bat
 - integration windows
-- integration ffserver
+- integration VLC
