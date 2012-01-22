@@ -67,19 +67,19 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 		</dependency>
-		
+
 		<!-- netty -->
 		<dependency>
 			<groupId>org.jboss.netty</groupId>
 			<artifactId>netty</artifactId>
 		</dependency>
-		
+
 		<!-- xstream -->
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
 		</dependency>
-		
+
 		<!-- cling -->
 		<dependency>
 			<groupId>org.teleal.cling</groupId>
@@ -93,25 +93,25 @@
 			<groupId>org.teleal</groupId>
 			<artifactId>teleal-common</artifactId>
 		</dependency>
-		
+
 		<!-- guice -->
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
 		</dependency>
-		
+
 		<!-- rome -->
 		<dependency>
 			<groupId>rome</groupId>
 			<artifactId>rome</artifactId>
 		</dependency>
-		
+
 		<!-- ehcache -->
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache-core</artifactId>
 		</dependency>
-		
+
 		<!-- jersey -->
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
@@ -129,7 +129,24 @@
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-json</artifactId>
 		</dependency>
-		
+
+		<!-- vlc -->
+		<dependency>
+			<groupId>uk.co.caprica</groupId>
+			<artifactId>vlcj</artifactId>
+			<version>1.2.2</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/../lib/vlcj-1.2.2.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>net.java.dev.jna</groupId>
+			<artifactId>jna</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.java.dev.jna</groupId>
+			<artifactId>platform</artifactId>
+		</dependency>
+
 		<!-- junit -->
 		<dependency>
 			<groupId>junit</groupId>

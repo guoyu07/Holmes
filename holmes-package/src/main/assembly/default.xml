@@ -30,6 +30,12 @@
 				<exclude>media/media.xml</exclude>
 			</excludes>
 		</fileSet>
+		<fileSet>
+			<directory>${basedir}/../lib</directory>
+			<outputDirectory>lib</outputDirectory>
+			<includes>
+				<include>vlcj-1.2.2.jar</include>
+			</includes>
+		</fileSet>
 	</fileSets>
-
 </assembly>
