@@ -19,68 +19,19 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 */
-package net.holmes.core.service;
+package net.holmes.core.vlc;
 
-import java.util.Set;
-
-import net.holmes.core.common.INodeListener;
-import net.holmes.core.model.AbstractNode;
+import net.holmes.core.common.IServer;
 
 /**
- * The Interface IMediaService.
+ * The Interface IVlcServer.
  */
-public interface IMediaService
+public interface IVLCServer extends IServer
 {
-
     /**
-     * Get a specific node. Return null is not found
+     * Adds the media.
      *
      * @param nodeId the node id
-     * @return the node
      */
-    public abstract AbstractNode getNode(String nodeId);
-
-    /**
-     * Gets the node ids.
-     *
-     * @return the node ids
-     */
-    public abstract Set<String> getNodeIds();
-
-    /**
-     * Scan all media.
-     * 
-     */
-    public abstract void scanAll();
-
-    /**
-     * Scan videos.
-     *
-     */
-    public abstract void scanVideos();
-
-    /**
-     * Scan audios.
-     *
-     */
-    public abstract void scanAudios();
-
-    /**
-     * Scan pictures.
-     *
-     */
-    public abstract void scanPictures();
-
-    /**
-     * Scan podcasts.
-     *
-     */
-    public abstract void scanPodcasts();
-
-    /**
-     * Adds the add content node listener.
-     *
-     * @param listener the listener
-     */
-    public abstract void addAddContentNodeListener(INodeListener listener);
+    public abstract void addMedia(String nodeId);
 }

@@ -363,7 +363,6 @@ public final class ContentDirectoryService extends AbstractContentDirectoryServi
      */
     private int addPodcastContainerItem(String parentNodeId, PodcastContainerNode podcastContainerNode, DIDLContent didl)
     {
-        if (logger.isDebugEnabled())
         {
             logger.debug("add podcast container item:" + podcastContainerNode);
         }

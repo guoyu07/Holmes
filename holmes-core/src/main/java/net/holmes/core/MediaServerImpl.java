@@ -24,6 +24,7 @@ package net.holmes.core;
 import net.holmes.core.common.IServer;
 import net.holmes.core.service.IMediaService;
 import net.holmes.core.util.LogUtil;
+import net.holmes.core.vlc.IVLCServer;
 
 import com.google.inject.Guice;
 import com.google.inject.Inject;
@@ -46,6 +47,9 @@ public final class MediaServerImpl implements IServer
     @Named("upnp")
     private IServer upnpServer;
 
+    @Inject
+    private IVLCServer vlcServer;
+
     /** The media service. */
     @Inject
     private IMediaService mediaService;
@@ -64,6 +68,12 @@ public final class MediaServerImpl implements IServer
     {
         // Scan content nodes
         mediaService.scanAll();
+
+        // Init servers
+        httpServer.init();
+        upnpServer.init();
+        vlcServer.init();
+
     }
 
     /* (non-Javadoc)
@@ -73,6 +83,7 @@ public final class MediaServerImpl implements IServer
     {
         httpServer.start();
         upnpServer.start();
+        vlcServer.start();
     }
 
     /* (non-Javadoc)
@@ -82,6 +93,7 @@ public final class MediaServerImpl implements IServer
     {
         httpServer.stop();
         upnpServer.stop();
+        vlcServer.stop();
     }
 
     /* (non-Javadoc)
@@ -90,7 +102,7 @@ public final class MediaServerImpl implements IServer
     @Override
     public boolean status()
     {
-        return httpServer.status() && upnpServer.status();
+        return httpServer.status() && upnpServer.status() && vlcServer.status();
     }
 
     /* (non-Javadoc)
@@ -101,6 +113,7 @@ public final class MediaServerImpl implements IServer
     {
         upnpServer.restart();
         httpServer.restart();
+        vlcServer.restart();
     }
 
     /**

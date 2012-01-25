@@ -28,7 +28,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.LinkedList;
 
 import net.holmes.core.util.LogUtil;
 
@@ -58,9 +57,6 @@ public final class XmlConfigurationImpl implements IConfiguration
 
     /** The Constant HOME_MEDIA_FOLDER. */
     private static final String HOME_SITE_FOLDER = "site";
-
-    /** The Constant DEFAULT_HTTP_PORT. */
-    private static final int DEFAULT_HTTP_PORT = 8085;
 
     /** The config. */
     private Configuration config = null;
@@ -114,11 +110,6 @@ public final class XmlConfigurationImpl implements IConfiguration
             }
         }
         if (config == null) config = new Configuration();
-        if (config.getVideoFolders() == null) config.setVideoFolders(new LinkedList<ContentFolder>());
-        if (config.getAudioFolders() == null) config.setAudioFolders(new LinkedList<ContentFolder>());
-        if (config.getPodcasts() == null) config.setPodcasts(new LinkedList<ContentFolder>());
-        if (config.getPictureFolders() == null) config.setPictureFolders(new LinkedList<ContentFolder>());
-        if (config.getHttpServerPort() == null) config.setHttpServerPort(DEFAULT_HTTP_PORT);
 
         LogUtil.setLevel(config.getLogLevel());
     }

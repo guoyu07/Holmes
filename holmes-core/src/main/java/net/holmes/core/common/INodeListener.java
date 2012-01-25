@@ -19,68 +19,27 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 */
-package net.holmes.core.service;
-
-import java.util.Set;
-
-import net.holmes.core.common.INodeListener;
-import net.holmes.core.model.AbstractNode;
+package net.holmes.core.common;
 
 /**
- * The Interface IMediaService.
+ * The listener interface for receiving i events.
+ * The class that is interested in processing a i
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addIListener<code> method. When
+ * the i event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see IEvent
  */
-public interface IMediaService
+public interface INodeListener
 {
 
     /**
-     * Get a specific node. Return null is not found
+     * Action performed.
      *
-     * @param nodeId the node id
-     * @return the node
+     * @param id the id
      */
-    public abstract AbstractNode getNode(String nodeId);
+    public abstract void actionPerformed(String id);
 
-    /**
-     * Gets the node ids.
-     *
-     * @return the node ids
-     */
-    public abstract Set<String> getNodeIds();
-
-    /**
-     * Scan all media.
-     * 
-     */
-    public abstract void scanAll();
-
-    /**
-     * Scan videos.
-     *
-     */
-    public abstract void scanVideos();
-
-    /**
-     * Scan audios.
-     *
-     */
-    public abstract void scanAudios();
-
-    /**
-     * Scan pictures.
-     *
-     */
-    public abstract void scanPictures();
-
-    /**
-     * Scan podcasts.
-     *
-     */
-    public abstract void scanPodcasts();
-
-    /**
-     * Adds the add content node listener.
-     *
-     * @param listener the listener
-     */
-    public abstract void addAddContentNodeListener(INodeListener listener);
 }

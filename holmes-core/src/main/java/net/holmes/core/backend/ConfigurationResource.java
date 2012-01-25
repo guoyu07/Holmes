@@ -239,6 +239,10 @@ public class ConfigurationResource
         response.setHttpServerPort(configuration.getConfig().getHttpServerPort());
         response.setServerName(configuration.getConfig().getServerName());
         response.setLogLevel(configuration.getConfig().getLogLevel());
+        // TODO add to response
+        configuration.getConfig().getStreamingPort();
+        configuration.getConfig().getStreamingServer();
+        configuration.getConfig().getVlcPath();
 
         try
         {

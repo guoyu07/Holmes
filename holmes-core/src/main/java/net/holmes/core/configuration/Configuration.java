@@ -42,14 +42,35 @@ public final class Configuration implements Serializable
     /** The Constant DEFAULT_LOG_LEVEL. */
     private static final String DEFAULT_LOG_LEVEL = "INFO";
 
+    /** The Constant DEFAULT_HTTP_PORT. */
+    private static final int DEFAULT_HTTP_PORT = 8085;
+
+    /** The Constant DEFAULT_STREAMING_PORT. */
+    private static final int DEFAULT_STREAMING_PORT = 5555;
+
+    /** The Constant DEFAULT_STREAMING_SERVER. */
+    private static final String DEFAULT_STREAMING_SERVER = "INTERNAL";
+
+    /** The Constant VLC_STREAMING_SERVER. */
+    private static final String VLC_STREAMING_SERVER = "VLC";
+
     /** The server name. */
     private String serverName;
 
     /** The http server port. */
-    private Integer httpServerPort;
+    private Integer httpServerPort = DEFAULT_HTTP_PORT;
 
     /** The log level. */
-    private String logLevel;
+    private String logLevel = DEFAULT_LOG_LEVEL;
+
+    /** The streaming server. */
+    private String streamingServer = DEFAULT_STREAMING_SERVER;
+
+    /** The streaming port. */
+    private Integer streamingPort = DEFAULT_STREAMING_PORT;
+
+    /** The vlc path. */
+    private String vlcPath;
 
     /** The videos. */
     private LinkedList<ContentFolder> videoFolders;
@@ -70,14 +91,8 @@ public final class Configuration implements Serializable
      */
     public String getServerName()
     {
-        if (serverName == null || serverName.trim().length() == 0)
-        {
-            return DEFAULT_SERVER_NAME;
-        }
-        else
-        {
-            return serverName;
-        }
+        if (serverName == null || serverName.trim().length() == 0) serverName = DEFAULT_SERVER_NAME;
+        return serverName;
     }
 
     /**
@@ -97,6 +112,7 @@ public final class Configuration implements Serializable
      */
     public Integer getHttpServerPort()
     {
+        if (httpServerPort == null || httpServerPort.intValue() == 0) httpServerPort = DEFAULT_HTTP_PORT;
         return httpServerPort;
     }
 
@@ -117,14 +133,8 @@ public final class Configuration implements Serializable
      */
     public String getLogLevel()
     {
-        if (logLevel == null || logLevel.trim().length() == 0)
-        {
-            return DEFAULT_LOG_LEVEL;
-        }
-        else
-        {
-            return logLevel;
-        }
+        if (logLevel == null || logLevel.trim().length() == 0) logLevel = DEFAULT_LOG_LEVEL;
+        return logLevel;
     }
 
     /**
@@ -145,6 +155,7 @@ public final class Configuration implements Serializable
      */
     public List<ContentFolder> getVideoFolders()
     {
+        if (videoFolders == null) videoFolders = new LinkedList<ContentFolder>();
         return videoFolders;
     }
 
@@ -165,6 +176,7 @@ public final class Configuration implements Serializable
      */
     public List<ContentFolder> getPodcasts()
     {
+        if (podcasts == null) podcasts = new LinkedList<ContentFolder>();
         return podcasts;
     }
 
@@ -185,6 +197,10 @@ public final class Configuration implements Serializable
      */
     public List<ContentFolder> getAudioFolders()
     {
+        if (audioFolders == null)
+        {
+            audioFolders = new LinkedList<ContentFolder>();
+        }
         return audioFolders;
     }
 
@@ -205,6 +221,7 @@ public final class Configuration implements Serializable
      */
     public List<ContentFolder> getPictureFolders()
     {
+        if (pictureFolders == null) pictureFolders = new LinkedList<ContentFolder>();
         return pictureFolders;
     }
 
@@ -218,4 +235,77 @@ public final class Configuration implements Serializable
         this.pictureFolders = pictureFolders;
     }
 
+    /**
+     * Gets the streaming server.
+     *
+     * @return the streaming server
+     */
+    public String getStreamingServer()
+    {
+        if (streamingServer == null) streamingServer = DEFAULT_STREAMING_SERVER;
+        return streamingServer;
+    }
+
+    /**
+     * Sets the streaming server.
+     *
+     * @param streamingServer the new streaming server
+     */
+    public void setStreamingServer(String streamingServer)
+    {
+        this.streamingServer = streamingServer;
+    }
+
+    /**
+     * Gets the streaming port.
+     *
+     * @return the streaming port
+     */
+    public Integer getStreamingPort()
+    {
+        if (streamingPort == null) streamingPort = DEFAULT_STREAMING_PORT;
+        return streamingPort;
+    }
+
+    /**
+     * Sets the streaming port.
+     *
+     * @param streamingPort the new streaming port
+     */
+    public void setStreamingPort(Integer streamingPort)
+    {
+        if (streamingPort == null) streamingPort = DEFAULT_STREAMING_PORT;
+        this.streamingPort = streamingPort;
+    }
+
+    /**
+     * Checks if is vlc enabled.
+     *
+     * @return true, if is vlc enabled
+     */
+    public boolean isVlcEnabled()
+    {
+        return VLC_STREAMING_SERVER.equals(getStreamingServer());
+    }
+
+    /**
+     * Gets the vlc path.
+     *
+     * @return the vlc path
+     */
+    public String getVlcPath()
+    {
+        if (vlcPath == null) vlcPath = "_path_to_vlc";
+        return vlcPath;
+    }
+
+    /**
+     * Sets the vlc path.
+     *
+     * @param vlcPath the new vlc path
+     */
+    public void setVlcPath(String vlcPath)
+    {
+        this.vlcPath = vlcPath;
+    }
 }

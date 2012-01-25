@@ -19,68 +19,44 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 */
-package net.holmes.core.service;
-
-import java.util.Set;
+package net.holmes.core.vlc;
 
 import net.holmes.core.common.INodeListener;
-import net.holmes.core.model.AbstractNode;
 
 /**
- * The Interface IMediaService.
+ * The listener interface for receiving addNode events.
+ * The class that is interested in processing a addNode
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addAddNodeListener<code> method. When
+ * the addNode event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see AddNodeEvent
  */
-public interface IMediaService
+public class AddNodeListener implements INodeListener
 {
 
-    /**
-     * Get a specific node. Return null is not found
-     *
-     * @param nodeId the node id
-     * @return the node
-     */
-    public abstract AbstractNode getNode(String nodeId);
+    /** The vlc server. */
+    IVLCServer vlcServer;
 
     /**
-     * Gets the node ids.
+     * Instantiates a new adds the node listener.
      *
-     * @return the node ids
+     * @param vlcServer the vlc server
      */
-    public abstract Set<String> getNodeIds();
+    public AddNodeListener(IVLCServer vlcServer)
+    {
+        this.vlcServer = vlcServer;
+    }
 
-    /**
-     * Scan all media.
-     * 
+    /* (non-Javadoc)
+     * @see net.holmes.core.common.IListener#actionPerformed(java.lang.String)
      */
-    public abstract void scanAll();
+    @Override
+    public void actionPerformed(String nodeId)
+    {
+        vlcServer.addMedia(nodeId);
+    }
 
-    /**
-     * Scan videos.
-     *
-     */
-    public abstract void scanVideos();
-
-    /**
-     * Scan audios.
-     *
-     */
-    public abstract void scanAudios();
-
-    /**
-     * Scan pictures.
-     *
-     */
-    public abstract void scanPictures();
-
-    /**
-     * Scan podcasts.
-     *
-     */
-    public abstract void scanPodcasts();
-
-    /**
-     * Adds the add content node listener.
-     *
-     * @param listener the listener
-     */
-    public abstract void addAddContentNodeListener(INodeListener listener);
 }

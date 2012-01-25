@@ -23,10 +23,12 @@ package net.holmes.core.service;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import net.holmes.core.common.INodeListener;
 import net.holmes.core.configuration.ContentFolder;
 import net.holmes.core.configuration.IConfiguration;
 import net.holmes.core.model.AbstractNode;
@@ -63,6 +65,9 @@ public final class MediaServiceImpl implements IMediaService
     /** The content type factory. */
     @Inject
     private IContentTypeFactory contentTypeFactory;
+
+    /** The add content node listerners. */
+    private Collection<INodeListener> addContentNodeListerners = new ArrayList<INodeListener>();
 
     /**
      * Instantiates a new media service impl.
@@ -398,6 +403,12 @@ public final class MediaServiceImpl implements IMediaService
 
             // Add the node
             mediaDao.addNode(node);
+
+            // Notify listeners
+            for (INodeListener listener : addContentNodeListerners)
+            {
+                listener.actionPerformed(node.getId());
+            }
         }
         if (logger.isDebugEnabled()) logger.debug("[END] addContentNode added node:" + node);
 
@@ -471,5 +482,14 @@ public final class MediaServiceImpl implements IMediaService
             mediaDao.removeNode(nodeId);
         }
         if (logger.isDebugEnabled()) logger.debug("[END] remove node");
+    }
+
+    /* (non-Javadoc)
+     * @see net.holmes.core.service.IMediaService#addAddContentNodeListener(net.holmes.core.common.INodeListener)
+     */
+    @Override
+    public void addAddContentNodeListener(INodeListener listener)
+    {
+        this.addContentNodeListerners.add(listener);
     }
 }

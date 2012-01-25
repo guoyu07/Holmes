@@ -37,6 +37,8 @@ import net.holmes.core.service.MediaServiceImpl;
 import net.holmes.core.service.dao.IMediaDao;
 import net.holmes.core.service.dao.XmlMediaDaoImpl;
 import net.holmes.core.upnp.UpnpServerImpl;
+import net.holmes.core.vlc.IVLCServer;
+import net.holmes.core.vlc.VLCServerImpl;
 
 import org.jboss.netty.channel.ChannelPipelineFactory;
 
@@ -67,6 +69,7 @@ public final class MediaServerModule extends AbstractModule
 
         bind(IServer.class).annotatedWith(Names.named("http")).to(HttpServerImpl.class).in(Singleton.class);
         bind(IServer.class).annotatedWith(Names.named("upnp")).to(UpnpServerImpl.class).in(Singleton.class);
+        bind(IVLCServer.class).to(VLCServerImpl.class).in(Singleton.class);
 
         bind(IHttpRequestHandler.class).annotatedWith(Names.named("content")).to(HttpContentHandler.class);
         bind(IHttpRequestHandler.class).annotatedWith(Names.named("backend")).to(HttpBackendHandler.class);
