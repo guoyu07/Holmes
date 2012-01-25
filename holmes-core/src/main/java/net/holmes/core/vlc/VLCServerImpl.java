@@ -22,8 +22,6 @@
 package net.holmes.core.vlc;
 
 import java.io.UnsupportedEncodingException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 import net.holmes.core.configuration.IConfiguration;
 import net.holmes.core.model.AbstractNode;
@@ -52,9 +50,6 @@ public class VLCServerImpl implements IVLCServer
     /** The media player factory. */
     private MediaPlayerFactory mediaPlayerFactory = null;
 
-    /** The local ip. */
-    private String localIp;
-
     /** The configuration. */
     @Inject
     private IConfiguration configuration;
@@ -69,36 +64,27 @@ public class VLCServerImpl implements IVLCServer
     @Override
     public void init()
     {
-        try
+        if (configuration.getConfig().isVlcEnabled())
         {
-            localIp = InetAddress.getLocalHost().getHostAddress();
+            // Initializes VLC media server
+            System.setProperty("jna.library.path", configuration.getConfig().getVlcPath());
+            System.setProperty("vlcj.log", "DEBUG");
+            String[] vlcArgs = { "--rtsp-port=" + configuration.getConfig().getStreamingPort() };
 
-            if (configuration.getConfig().isVlcEnabled())
+            mediaPlayerFactory = new MediaPlayerFactory(vlcArgs);
+            mediaManager = mediaPlayerFactory.newMediaManager();
+
+            // Add medias to VLC
+            if (mediaService.getNodeIds() != null)
             {
-                // Initializes VLC media server
-                System.setProperty("jna.library.path", configuration.getConfig().getVlcPath());
-                System.setProperty("vlcj.log", "DEBUG");
-                String[] vlcArgs = { "--rtsp-port=" + configuration.getConfig().getStreamingPort() };
-
-                mediaPlayerFactory = new MediaPlayerFactory(vlcArgs);
-                mediaManager = mediaPlayerFactory.newMediaManager();
-
-                // Add medias to VLC
-                if (mediaService.getNodeIds() != null)
+                for (String nodeId : mediaService.getNodeIds())
                 {
-                    for (String nodeId : mediaService.getNodeIds())
-                    {
-                        addMedia(nodeId);
-                    }
+                    addMedia(nodeId);
                 }
-
-                // Add listener to mediaService
-                mediaService.addAddContentNodeListener(new AddNodeListener(this));
             }
-        }
-        catch (UnknownHostException e)
-        {
-            logger.error(e.getMessage(), e);
+
+            // Add listener to mediaService
+            mediaService.addAddContentNodeListener(new AddNodeListener(this));
         }
     }
 
